@@ -1,6 +1,6 @@
 /*
  * Bittorrent Client using Qt and libtorrent.
- * Copyright (C) 2022  Vladimir Golovnev <glassez@yandex.ru>
+ * Copyright (C) 2022-2024  Vladimir Golovnev <glassez@yandex.ru>
  * Copyright (C) 2006  Christophe Dumez <chris@qbittorrent.org>
  *
  * This program is free software; you can redistribute it and/or
@@ -32,7 +32,8 @@
 #include <QList>
 #include <QWidget>
 
-#include "base/pathfwd.h"
+#include "base/settingvalue.h"
+#include "gui/filterpatternformat.h"
 
 class QPushButton;
 class QTreeView;
@@ -73,19 +74,20 @@ public:
     TrackerListWidget *getTrackerList() const;
     PeerListWidget *getPeerList() const;
     QTreeView *getFilesList() const;
+    PropTabBar *tabBar() const;
+    LineEdit *contentFilterLine() const;
 
 public slots:
     void setVisibility(bool visible);
-    void loadTorrentInfos(BitTorrent::Torrent *const torrent);
+    void loadTorrentInfos(BitTorrent::Torrent *torrent);
     void loadDynamicData();
     void clear();
     void readSettings();
     void saveSettings();
     void reloadPreferences();
-    void loadTrackers(BitTorrent::Torrent *const torrent);
 
 protected slots:
-    void updateTorrentInfos(BitTorrent::Torrent *const torrent);
+    void updateTorrentInfos(BitTorrent::Torrent *torrent);
     void loadUrlSeeds();
     void askWebSeed();
     void deleteSelectedUrlSeeds();
@@ -97,10 +99,12 @@ protected slots:
 
 private slots:
     void configure();
-    void updateSavePath(BitTorrent::Torrent *const torrent);
+    void updateSavePath(BitTorrent::Torrent *torrent);
 
 private:
     QPushButton *getButtonFromIndex(int index);
+    void showContentFilterContextMenu();
+    void setContentFilterPattern();
 
     Ui::PropertiesWidget *m_ui = nullptr;
     BitTorrent::Torrent *m_torrent = nullptr;
@@ -114,4 +118,6 @@ private:
     PropTabBar *m_tabBar = nullptr;
     LineEdit *m_contentFilterLine = nullptr;
     int m_handleWidth = -1;
+
+    SettingValue<FilterPatternFormat> m_storeFilterPatternFormat;
 };

@@ -55,8 +55,8 @@ public slots:
 private slots:
     virtual void showMenu() = 0;
     virtual void applyFilter(int row) = 0;
-    virtual void handleTorrentsLoaded(const QVector<BitTorrent::Torrent *> &torrents) = 0;
-    virtual void torrentAboutToBeDeleted(BitTorrent::Torrent *const) = 0;
+    virtual void handleTorrentsLoaded(const QList<BitTorrent::Torrent *> &torrents) = 0;
+    virtual void torrentAboutToBeDeleted(BitTorrent::Torrent *) = 0;
 
 private:
     TransferListWidget *m_transferList = nullptr;
