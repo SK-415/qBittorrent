@@ -1,6 +1,6 @@
 /*
  * Bittorrent Client using Qt and libtorrent.
- * Copyright (C) 2022  Vladimir Golovnev <glassez@yandex.ru>
+ * Copyright (C) 2022-2024  Vladimir Golovnev <glassez@yandex.ru>
  * Copyright (C) 2006  Christophe Dumez <chris@qbittorrent.org>
  *
  * This program is free software; you can redistribute it and/or
@@ -56,14 +56,13 @@ public:
     void setToolTip(const QString &toolTip);
 
     QMenu *menu() const;
-    void setMenu(QMenu *menu);
 
     bool isNotificationsEnabled() const;
     void setNotificationsEnabled(bool value);
 
     int notificationTimeout() const;
 #ifdef QBT_USES_DBUS
-    void setNotificationTimeout(const int value);
+    void setNotificationTimeout(int value);
 #endif
 
     void showNotification(const QString &title, const QString &msg) const;
